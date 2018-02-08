@@ -28,9 +28,14 @@ Route::middleware('web')->group(function () {
         return redirect('/');
     });
 
-    //Authed user works here
+    //Authed user works here when signed in
     Route::get('/', function () {
         dd(Auth::user());
+    });
+
+    Route::get('logout', function () {
+        Auth::logout();
+        return redirect('/');
     });
 });
 
