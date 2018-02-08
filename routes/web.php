@@ -49,3 +49,15 @@ Route::middleware(['bindings', 'web'])->group(function () {
         dd(Auth::user());
     });
 });
+
+Route::middleware('webWithoutBindings')->group(function () {
+    Route::get('withoutBindings', function () {
+        dd(Auth::user());
+    });
+});
+
+Route::middleware(['bindings', 'webWithoutBindings'])->group(function () {
+    Route::get('withBindings', function () {
+        dd(Auth::user());
+    });
+});
