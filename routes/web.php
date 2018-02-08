@@ -50,12 +50,21 @@ Route::middleware(['bindings', 'web'])->group(function () {
     });
 });
 
+/*
+ * No issue here as well - this is the "web" middleware
+ * without the substitution of route bindings.
+ * Everything works as expected with the auth.
+ */
 Route::middleware('webWithoutBindings')->group(function () {
     Route::get('withoutBindings', function () {
         dd(Auth::user());
     });
 });
 
+/*
+ * However, if we add binding to the route, before the session is initialized,
+ * the session gets messed up and Auth::user() returns null.
+ */
 Route::middleware(['bindings', 'webWithoutBindings'])->group(function () {
     Route::get('withBindings', function () {
         dd(Auth::user());
